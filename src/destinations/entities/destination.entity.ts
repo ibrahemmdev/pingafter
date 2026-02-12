@@ -15,35 +15,32 @@ export class Destination {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  name: string;
-
-  @Column({ nullable: true })
-  address?: string;
-
-  @Column({ type: 'decimal', precision: 10, scale: 7, nullable: true })
-  lat?: number;
-
-  @Column({ type: 'decimal', precision: 10, scale: 7, nullable: true })
-  lng?: number;
-
-  @Column({ type: 'text', nullable: true })
-  notes?: string;
-
   @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
   user: User;
 
   @Column()
   userId: string;
 
-  @ManyToOne(() => Group, { nullable: true, onDelete: 'SET NULL' })
-  group?: Group;
+  @Column()
+  name: string;
 
-  @Column({ nullable: true })
-  groupId?: string;
+  @Column()
+  address: string;
 
-  @Column({ type: 'float', nullable: true })
-  timerHours: number;
+  @Column({ type: 'decimal', precision: 10, scale: 7 })
+  lat: number;
+
+  @Column({ type: 'decimal', precision: 10, scale: 7 })
+  lng: number;
+
+  @ManyToOne(() => Group, { nullable: false, onDelete: 'RESTRICT' })
+  group: Group;
+
+  @Column()
+  groupId: string;
+
+  @Column({ type: 'text', nullable: true })
+  notes?: string;
 
   @Column({ type: 'timestamp', nullable: true })
   scheduledStartTime?: Date;

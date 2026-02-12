@@ -1,31 +1,32 @@
-import { IsString, IsOptional, IsNumber, IsEnum, IsUUID, Min, Max } from 'class-validator';
+import { IsString, IsNumber, IsEnum, IsUUID, IsNotEmpty, IsOptional, IsDateString } from 'class-validator';
+import { DestinationStatus } from '../entities/destination.entity';
 
 export class CreateDestinationDto {
-  @IsString()
+  @IsString() @IsNotEmpty()
   name: string;
 
-  @IsOptional() @IsString()
-  address?: string;
+  @IsString() @IsNotEmpty()
+  address: string;
 
-  @IsOptional() @IsNumber()
-  lat?: number;
+  @IsNumber() @IsNotEmpty()
+  lat: number;
 
-  @IsOptional() @IsNumber()
-  lng?: number;
+  @IsNumber() @IsNotEmpty()
+  lng: number;
 
-  @IsUUID()
+  @IsUUID() @IsNotEmpty()
   groupId: string;
 
   @IsOptional() @IsString()
   notes?: string;
 
-  @IsNumber()
-  @Min(0.1) @Max(168)
-  timerHours: number;
-
-  @IsEnum(['startNow', 'startLater', 'save'])
-  action: 'startNow' | 'startLater' | 'save';
-
-  @IsOptional()
+  @IsOptional() @IsDateString()
   scheduledStartTime?: Date;
+
+  @IsEnum(DestinationStatus)
+  @IsNotEmpty()
+  status: DestinationStatus;
+
+  @IsOptional() @IsDateString()
+  deadline?: Date;
 }
