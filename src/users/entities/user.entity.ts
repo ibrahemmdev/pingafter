@@ -23,6 +23,15 @@ export class User {
   @Column({ nullable: true })
   picture?: string;
 
+  @Column({ nullable: true })
+  heirEmail?: string
+
+  @Column({ default: false })
+  deadSwitchEnabled?: boolean;
+
+  @Column({ type: 'int', nullable: true })
+  deadSwitchDurationHours?: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
